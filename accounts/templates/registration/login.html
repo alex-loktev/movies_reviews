@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{%load crispy_forms_tags%}
+
+
+{%block title%}Log in{%endblock%}
+
+{%block body%}
+<div class="row">
+    <div class="col">
+    </div>
+    <div class="col-6">
+        <h5 class="text-center mt-4 mb-4">Вход</h5>
+        <form action="." method="post">
+            {%csrf_token%}
+            {{form|crispy}}
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit" class="btn btn-primary">Вход</button>
+            <a href="{%url 'registration'%}" class=" ml-4 mt-2">Зарегистрироваться</a>
+        </form>
+    </div>
+    <div class="col">
+    </div>
+</div>
+{%endblock%}

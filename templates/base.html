@@ -1,0 +1,33 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%block title%}base{%endblock%}</title>
+    <link rel="stylesheet" href="{%static 'css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{%static 'css/bootstrap-grid.css'%}">
+    <link rel="stylesheet" href="{%static 'css/bootstrap-reboot.css'%}">
+    <link rel="stylesheet" href="{%static 'css/mystyle.css'%}">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{%url 'home'%}">Независимое кино</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active ml-4">
+            </li>
+        </ul>
+        {%if user.is_authenticated%}
+        <a href="" class="mr-3">{{user.username}}</a>
+        <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout'%}" >Выйти</a>
+        {% else %}
+        <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login'%}">Войти</a>
+        <a class="btn btn-outline-success my-2 my-sm-0 ml-2" href="{%url 'registration'%}">Регистрация</a>
+        {%endif%}
+    </div>
+</nav>
+<div class="container">
+{%block body%} {%endblock%}
+</div>
+</body>
+</html>

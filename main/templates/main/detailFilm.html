@@ -1,0 +1,71 @@
+{%extends 'base.html'%}
+{%load crispy_forms_tags%}
+
+{%block title%}{{film.title}}{%endblock%}
+
+{%block body%}
+<div class="row mt-3">
+    <div class="col-6 col-md-4"><img src="{{ film.image.url}}" height="314" width="215" style="margin-left: 80px"></div>
+    <div class="col">
+        <h4>{{film.title}}</h4>
+        <div class="container px-lg-5">
+            <div class="row mx-lg-n5 mt-2">
+                <div class="col py-1 px-lg-5 border bg-light">жанр</div>
+                <div class="col py-1 px-lg-5 border bg-light">
+                    {%for category in film.categories.all%}
+                    {{category}}
+                    {%endfor%}
+                </div>
+            </div>
+            <div class="row mx-lg-n5 mt-2">
+                <div class="col py-1 px-lg-5 border bg-light">год</div>
+                <div class="col py-1 px-lg-5 border bg-light">{{film.release.year}}</div>
+            </div>
+            <div class="row mx-lg-n5 mt-2">
+                <div class="col py-1 px-lg-5 border bg-light">страна</div>
+                <div class="col py-1 px-lg-5 border bg-light">{{film.country}}</div>
+            </div>
+            <div class="row mx-lg-n5 mt-2">
+                <div class="col py-1 px-lg-5 border bg-light">режиссёр</div>
+                <div class="col py-1 px-lg-5 border bg-light">{{film.producer}}</div>
+            </div>
+            <div class="row mx-lg-n5 mt-2">
+                <div class="col py-1 px-lg-5 border bg-light">бюджет</div>
+                <div class="col py-1 px-lg-5 border bg-light">${{film.budget}}</div>
+            </div>
+            <div class="row mx-lg-n5 mt-2">
+                <div class="col py-1 px-lg-5 border bg-light">рейтинг кинокритиков</div>
+                <div class="col py-1 px-lg-5 border bg-light">{{film.rating}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+  <div class="row mt-3">
+    <div class="col-6 col-md-4"></div>
+    <div class="col-md-8"><p>{{film.description}}</p></div>
+  </div>
+<hr>
+{%if film.comments %}
+<h4 class="text-center">Рецензии</h4>
+{%if user.is_authenticated%}
+<form action="" method="post">
+    {%csrf_token%}
+    {%for field in form%}
+    {{field|as_crispy_field}}
+    {%endfor%}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{%endif%}
+{% for comment in film.comments.all%}
+<div class="card mt-3">
+  <div class="card-body ">
+    <p>{{comment.author}}</p>
+      <p>rating: {{comment.rating}}</p>
+      <p>{{comment.text}}</p>
+  </div>
+</div>
+{%endfor%}
+{%endif%}
+</div>
+
+{%endblock%}
