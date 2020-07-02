@@ -5,6 +5,8 @@ from .forms import *
 
 
 class RegistrationView(View):
+    """Registration"""
+
     def get(self, request):
         form = RegistrationForm()
         return render(request, 'accounts/registration.html', {'form': form})

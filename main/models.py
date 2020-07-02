@@ -6,10 +6,11 @@ from django.core.exceptions import ValidationError
 
 
 class Film(models.Model):
+    """Film model"""
     title = models.CharField(max_length=70)
     slug = models.SlugField(unique=True, db_index=True, blank=True)
     description = models.TextField()
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', blank=True)
     release = models.DateTimeField()
     rating = models.DecimalField(max_digits=4, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
@@ -30,6 +31,7 @@ class Film(models.Model):
 
 
 class Category(models.Model):
+    """Category model"""
     title = models.CharField(max_length=50)
     slug = models.SlugField(unique=True, db_index=True, blank=True)
 
@@ -41,6 +43,7 @@ class Category(models.Model):
 
 
 class Comment(models.Model):
+    """Comment model"""
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
     rating = models.IntegerField(default=10)

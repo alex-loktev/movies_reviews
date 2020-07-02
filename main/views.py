@@ -6,6 +6,8 @@ from .forms import *
 
 
 class HomePage(ListView):
+    """List all film in home page"""
+
     model = Film
     context_object_name = 'films'
     template_name = 'main/home.html'
@@ -18,6 +20,8 @@ class HomePage(ListView):
 
 
 class FilmDetail(View):
+    """Detail information about film and realisation of comments"""
+
     def get(self, request, slug):
         film = Film.objects.get(slug=slug)
         form = ComentCreateForm()
@@ -40,6 +44,8 @@ class FilmDetail(View):
 
 
 class CategoryDetail(DetailView):
+    """Films with the selected category"""
+
     model = Category
     context_object_name = 'category'
     template_name = 'main/home.html'
